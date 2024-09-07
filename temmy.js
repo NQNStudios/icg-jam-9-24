@@ -10,7 +10,7 @@ function beep(times=1) {
 function showImage(file) {
 var elem = document.createElement("img");
 elem.setAttribute("src", "images/" + file);
-document.getElementById("story").appendChild(elem);
+return elem;
 }
 
 
@@ -43,7 +43,6 @@ if (gStory.noTimers || gStory.delayingContinue) return;
 function setupStory(story) {
     gStory = story;
     gStory.noTimers = false;
-    story.BindExternalFunction("showImage", showImage);
     story.BindExternalFunction("timer", timer);
     story.BindExternalFunction("beep", beep);
 }

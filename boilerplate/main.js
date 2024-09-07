@@ -6,6 +6,7 @@
 		setupStory(story);
 		
     var storyContainer = document.querySelectorAll('#story')[0];
+	var lastDelayIncrease = 0;
 
     function showAfter(delay, el) {
         setTimeout(function() {
@@ -14,13 +15,14 @@
 		}, delay);
     }
 
+	var SCROLL_DURATION = 300;
     function scrollToBottom() {
         var progress = 0.0;
         var start = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
         var dist = document.body.scrollHeight - window.innerHeight - start;
         if( dist < 0 ) return;
 
-        var duration = 300 + 300*dist/100;
+        var duration = SCROLL_DURATION;
         var startTime = null;
         function step(time) {
             if( startTime == null ) startTime = time;
@@ -32,7 +34,7 @@
         requestAnimationFrame(step);
     }
 
-	var DELAY_PER_PARA = 1000;
+	var DELAY_PER_PARA = 100; // 1000;
 	var CHUNK = 80;
 
     function continueStory() {
@@ -75,16 +77,25 @@
 						applyCodeDelimiter("```\n");
 						applyCodeDelimiter("`");
 			
-						paragraphText = paragraphText.replace("\n", "<br />");
-			
-						// Create paragraph element
-						var paragraphElement = document.createElement('p');
-						paragraphElement.innerHTML = paragraphText;
+						var paragraphElement = null;
+						console.log(paragraphText);
+						if(paragraphText.endsWith(".png\n")) {
+							paragraphElement = showImage(paragraphText);
+							// Appear simultaneous with last thing:
+							delay -= lastDelayIncrease;
+						}
+						else {
+							// Create paragraph element
+							paragraphText = paragraphText.replace("\n", "<br />");
+							var paragraphElement = document.createElement('p');
+							paragraphElement.innerHTML = paragraphText;
+						}
 
 						// Fade in paragraph after a short delay
 						showAfter(delay, paragraphElement);
 
-						delay += DELAY_PER_PARA * Math.ceil(paragraphText.length / CHUNK);
+						lastDelayIncrease = DELAY_PER_PARA * Math.ceil(paragraphText.length / CHUNK);
+						delay += lastDelayIncrease;
 				}
 				if (!story.delayingContinue && !story.canContinue) {
 						// Create HTML choices from ink choices
