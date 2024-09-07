@@ -11,7 +11,7 @@
     function showAfter(delay, el) {
         setTimeout(function() {
 			storyContainer.appendChild(el);
-			el.classList.add("show"); scrollToBottom();
+			el.classList.add("show"); //scrollToBottom();
 		}, delay);
     }
 
@@ -34,7 +34,7 @@
         requestAnimationFrame(step);
     }
 
-	var DELAY_PER_PARA = 100; // 1000;
+	var DELAY_PER_PARA = 1000;
 	var CHUNK = 80;
 
     function continueStory() {
@@ -132,7 +132,7 @@
 								});
 
 								
-        scrollToBottom();
+        //scrollToBottom();
             });
 				}
 				else if (!story.delayingContinue) {
