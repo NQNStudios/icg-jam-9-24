@@ -5,9 +5,9 @@ if [ -d $out_path ]; then rm -rf $out_path; fi
 
 # Compile the protocol Ink
 if [[ $(uname) == *"MINGW"* ]]; then
-    inklecate/inklecate.exe ${main_ink_file}
+    inklecate/inklecate.exe ${main_ink_file} || exit 1
 else
-    mono inklecate/inklecate.exe ${main_ink_file}
+    mono inklecate/inklecate.exe ${main_ink_file} || exit 1
 fi
 
 
