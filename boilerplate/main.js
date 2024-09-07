@@ -8,7 +8,10 @@
     var storyContainer = document.querySelectorAll('#story')[0];
 
     function showAfter(delay, el) {
-        setTimeout(function() { el.classList.add("show"); scrollToBottom(); }, delay);
+        setTimeout(function() {
+			storyContainer.appendChild(el);
+			el.classList.add("show"); scrollToBottom();
+		}, delay);
     }
 
     function scrollToBottom() {
@@ -29,11 +32,14 @@
         requestAnimationFrame(step);
     }
 
+	var DELAY_PER_PARA = 1000;
+	var CHUNK = 80;
+
     function continueStory() {
 
         var paragraphIndex = 0;
         var delay = 0.0;
-				if (!story.delayingContinue && story.canContinue) {
+				while (!story.delayingContinue && story.canContinue) {
 						// Generate next paragraph of story text
 						// Get ink to generate the next paragraph
 						var paragraphText = story.Continue();
@@ -74,12 +80,11 @@
 						// Create paragraph element
 						var paragraphElement = document.createElement('p');
 						paragraphElement.innerHTML = paragraphText;
-						storyContainer.appendChild(paragraphElement);
 
 						// Fade in paragraph after a short delay
 						showAfter(delay, paragraphElement);
 
-						delay += 200.0;
+						delay += DELAY_PER_PARA * Math.ceil(paragraphText.length / CHUNK);
 				}
 				if (!story.delayingContinue && !story.canContinue) {
 						// Create HTML choices from ink choices
