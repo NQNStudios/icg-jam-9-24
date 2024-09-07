@@ -8,9 +8,9 @@ function beep(times=1) {
 }
 
 function showImage(file) {
-var elem = document.createElement("img");
-elem.setAttribute("src", "images/" + file);
-return elem;
+    var elem = document.createElement("img");
+    elem.setAttribute("src", "images/" + file);
+    return elem;
 }
 
 

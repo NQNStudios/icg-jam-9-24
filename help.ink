@@ -48,18 +48,28 @@ If something can be combined with something else, recycle them together!"
 }
 {band_aid:
     \- Dirty Band-Aid
+
+    RRR_Bandaid.png
 }
 {hair:
     \- Clump of Hair
+
+    RRR_Hair.png
 }
 {stuffed_dog:
     \- Stuffed Dog
+
+    RRR_Dog.png
 }
 {baby_doll:
     \- Baby Doll
+
+    RRR_Baby.png
 }
 {mannequin_torso:
     \- Mannequin torso
+
+    RRR_Mannequin.png
 }
 
 == actions
